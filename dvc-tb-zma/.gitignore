@@ -1,0 +1,68 @@
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+dist
+dist-ssr
+*.local
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Production build
+www/
+
+.env*
+.flaskenv*
+!.env.example
+!.env.project
+!.env.vault
+
+# Test Coverage
+/coverage/*
+!/coverage/
+!/coverage/.gitkeep
+
+# nyc
+/.nyc_output/*
+!/.nyc_output/.gitkeep

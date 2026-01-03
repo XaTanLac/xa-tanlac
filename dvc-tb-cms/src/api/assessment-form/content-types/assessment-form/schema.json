@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assessment_forms",
+  "info": {
+    "singularName": "assessment-form",
+    "pluralName": "assessment-forms",
+    "displayName": "Tham vấn ý kiến nhân dân"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "google_form_link": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    }
+  }
+}

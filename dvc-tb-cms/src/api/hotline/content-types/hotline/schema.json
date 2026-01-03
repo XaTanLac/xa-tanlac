@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hotlines",
+  "info": {
+    "singularName": "hotline",
+    "pluralName": "hotlines",
+    "displayName": "Đường dây nóng",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "hotlineTypeId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::hotline-type.hotline-type",
+      "inversedBy": "listHotlines"
+    },
+    "sort": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "unique": true,
+      "default": 1,
+      "min": 0
+    }
+  }
+}

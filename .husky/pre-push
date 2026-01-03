@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+read ref name remote_ref remote_name
+
+branch=$(echo "$ref" | sed 's|refs/heads/||')
+
+case "$branch" in
+  master|main|develop|staging|release/*)
+    echo "Cannot push to remote $branch branch, please create your own branch and use PR."
+    exit 1
+    ;;
+esac

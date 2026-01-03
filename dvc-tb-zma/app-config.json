@@ -1,0 +1,20 @@
+{
+  "app": {
+    "title": "dvc-tb-zma",
+    "headerTitle": "Xã Vĩnh Hòa",
+    "headerColor": "#ffffff",
+    "textColor": "black",
+    "textAlign": "left",
+    "statusBarColor": "#ffffff",
+    "leftButton": "back",
+    "statusBar": "normal",
+    "actionBarHidden": true,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false
+  },
+  "debug": false,
+  "pages": [],
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": []
+}

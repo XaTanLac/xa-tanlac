@@ -1,0 +1,86 @@
+.page {
+  padding: 16px 16px 96px 16px;
+}
+
+.section-container {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.zaui-list-item {
+  cursor: pointer;
+}
+
+.zaui-btn.zaui-btn-secondary {
+  background-color: #99a1af;
+  color: white;
+}
+
+.zaui-btn.zaui-btn-secondary:hover {
+  opacity: 0.9;
+}
+
+.zaui-btn.zaui-btn-primary {
+  background-color: #0084d1;
+  color: white;
+}
+
+.zaui-btn.zaui-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.article-content {
+  h1,
+  h2,
+  h3 {
+    font-weight: bold;
+    color: inherit;
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 10px 0 12px 0;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin: 8px 0 10px 0;
+  }
+
+  p,
+  span {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  ul,
+  ol {
+    font-size: 18px;
+    margin: 0 0 16px 20px;
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  a {
+    color: #1b85cc;
+    text-decoration: underline;
+    white-space: normal;
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+}

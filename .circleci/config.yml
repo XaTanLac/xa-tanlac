@@ -1,0 +1,18 @@
+version: 2.1
+
+# define this file as the setup phase of your dynamic configuration
+setup: true
+
+orbs:
+  path-filtering: circleci/path-filtering@1
+
+workflows:
+  always-run:
+    jobs:
+      - path-filtering/filter:
+          name: check-updated-files
+          mapping: |
+            dvc-tb-cms/.* build_cms true
+            dvc-tb-zma/.* build_zma true
+            ^(?!dvc-tb-cms/|dvc-tb-zma/).* build_all true
+          config-path: .circleci/main.yml

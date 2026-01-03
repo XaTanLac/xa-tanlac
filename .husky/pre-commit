@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+branch=$(git symbolic-ref --short HEAD)
+
+case "$branch" in
+  master|main|develop|staging|release/*)
+    echo "Cannot commit to remote $branch branch, please create your own branch and use PR."
+    exit 1
+    ;;
+esac
+
+yarn lint-staged

@@ -1,0 +1,23 @@
+{
+  "name": "dvc-tm",
+  "version": "1.0.0",
+  "private": true,
+  "lint-staged": {
+    "*/src/**/*.{js,jsx,ts,tsx}": [
+      "yarn workspace dvc-tb-zma run lint-fix",
+      "yarn workspace dvc-tb-zma run prettier-fix"
+    ]
+  },
+  "workspaces": {
+    "packages": [
+      "dvc-tb-zma",
+      "dvc-tb-cms"
+    ],
+    "nohoist": [
+      "dvc-tb-zma/vite",
+      "dvc-tb-zma/vite-tsconfig-paths",
+      "dvc-tb-zma/@vitejs/plugin-react"
+    ]
+  },
+  "dependencies": {}
+}

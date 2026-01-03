@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "my_audio_postings",
+  "info": {
+    "singularName": "my-audio-posting",
+    "pluralName": "my-audio-postings",
+    "displayName": "Vĩnh Hòa của tôi - Âm thanh",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "linkVideo": {
+      "type": "string",
+      "required": true,
+      "default": "empty",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "audio": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

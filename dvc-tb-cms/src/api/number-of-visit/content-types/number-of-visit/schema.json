@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "number_of_visits",
+  "info": {
+    "singularName": "number-of-visit",
+    "pluralName": "number-of-visits",
+    "displayName": "Số lượng truy cập",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "device": {
+      "type": "string"
+    },
+    "timeVisit": {
+      "type": "datetime"
+    }
+  }
+}

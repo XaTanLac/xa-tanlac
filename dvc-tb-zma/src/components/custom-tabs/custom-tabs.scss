@@ -1,0 +1,20 @@
+.custom-tabs {
+  .zaui-tabs-tabbar {
+    position: fixed;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .zaui-tab-content {
+    padding-top: 44px;
+  }
+
+  .zaui-tabs-tabbar-active-line {
+    background-color: #0084d1;
+  }
+
+  .zaui-tabs-tabbar-item {
+    font-size: 14px;
+    padding: 14px 18px;
+  }
+}

@@ -1,0 +1,29 @@
+services:
+  dvc-xavinhhoa:
+    image: ekilaadmin/dvc-xavinhhoa
+    networks:
+      - proxy
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.services.dvc-xavinhhoa.loadbalancer.server.port=1337
+      - traefik.http.routers.dvc-xavinhhoa.rule=Host(`vinhhoa.sohoaqg.vn`)
+      - traefik.http.routers.dvc-xavinhhoa.entrypoints=websecure
+      - traefik.http.routers.dvc-xavinhhoa.tls=true
+      - traefik.http.routers.dvc-xavinhhoa.tls.certresolver=letsencrypt
+      - traefik.http.routers.dvc-xavinhhoa.middlewares=request-limit@file
+    env_file: .env
+    volumes:
+      - ./public:/opt/app/public
+
+  backup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ekilaadmin/dvc-bk
+    container_name: backup_container
+
+networks:
+  proxy:
+    external: true

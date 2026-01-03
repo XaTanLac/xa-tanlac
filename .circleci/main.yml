@@ -1,0 +1,194 @@
+version: 2.1
+
+parameters:
+  build_cms:
+    type: boolean
+    default: false
+  build_zma:
+    type: boolean
+    default: false
+  build_all:
+    type: boolean
+    default: false
+
+orbs:
+  node: circleci/node@7.1
+
+jobs:
+  build-node:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install:
+          node-version: "20.18.3"
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: cache-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run:
+          command: |
+            cd dvc-tb-cms
+            npm run build
+
+  build-assets:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install:
+          node-version: "20.18.3"
+      - save_cache:
+          key: cache-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
+          name: Upload static files to R2
+          command: |
+            cd dvc-tb-zma
+            npm install
+            echo "APP_ID=${APP_ID}" > .env
+            echo "SECRET_KEY=${SECRET_KEY}" >> .env
+            echo "VITE_SECRET_KEY=${VITE_SECRET_KEY}" >> .env
+            echo "VITE_URL_STRAPI=${VITE_URL_STRAPI}" >> .env
+            echo "VITE_TOKEN_STRAPI=${VITE_TOKEN_STRAPI}" >> .env
+            npm run build
+            aws configure set aws_access_key_id $R2_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $R2_SECRET_ACCESS_KEY
+            aws configure set default.region auto
+            aws s3 sync ./www/assets s3://$R2_BUCKET --endpoint-url $R2_ENDPOINT --delete
+
+  deploy-staging:
+    docker:
+      - image: cimg/base:stable
+
+    environment:
+      SERVICE_NAME: dvc-xavinhhoa-staging2
+      SERVICE_PATH: ~/
+      DEPLOY_SCRIPT: ~/EkilaVN/gateway/deploy.sh
+
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build & tag docker image
+          command: |
+            cd dvc-tb-cms
+            VERSION=$(cat version.rc)
+            TAG=$VERSION.$CIRCLE_BUILD_NUM
+            docker build -t $REGISTRY_USERNAME_STAGING/$SERVICE_NAME:latest -t $REGISTRY_USERNAME_STAGING/$SERVICE_NAME:$TAG --build-arg NODE_ENV=production .
+      - run:
+          name: Publish docker image to registry
+          command: |
+            cd dvc-tb-cms
+            VERSION=$(cat version.rc)
+            TAG=$VERSION.$CIRCLE_BUILD_NUM
+            echo $REGISTRY_PASSWORD_STAGING | docker login -u $REGISTRY_USERNAME_STAGING --password-stdin
+            docker push $REGISTRY_USERNAME_STAGING/$SERVICE_NAME:$TAG
+            docker push $REGISTRY_USERNAME_STAGING/$SERVICE_NAME:latest
+
+      - add_ssh_keys:
+          fingerprints:
+            - ${VPS_FINGERPRINT_STAGING}
+
+      - run:
+          name: Deploy to cloud VPS
+          command: |
+            cd dvc-tb-cms
+            ssh -o StrictHostKeyChecking=no -v $VPS_USERNAME_STAGING@$VPS_HOST_STAGING -p $VPS_PORT_STAGING "chmod +x $DEPLOY_SCRIPT && $DEPLOY_SCRIPT --service $SERVICE_NAME --service-path $SERVICE_PATH --mode init"
+            scp -P $VPS_PORT_STAGING -o StrictHostKeyChecking=no -v docker-compose.yml $VPS_USERNAME_STAGING@$VPS_HOST_STAGING:$SERVICE_PATH/$SERVICE_NAME
+            ssh -o StrictHostKeyChecking=no -v $VPS_USERNAME_STAGING@$VPS_HOST_STAGING -p $VPS_PORT_STAGING "chmod +x $DEPLOY_SCRIPT && $DEPLOY_SCRIPT --service $SERVICE_NAME --service-path $SERVICE_PATH --mode deploy"
+
+  deploy-production:
+    docker:
+      - image: cimg/base:stable
+
+    environment:
+      SERVICE_NAME: dvc-xavinhhoa
+      SERVICE_PATH: ~/
+      DEPLOY_SCRIPT: ~/EkilaVN/gateway/deploy.sh
+
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build & tag docker image
+          command: |
+            cd dvc-tb-cms
+            VERSION=$(cat version.rc)
+            TAG=$VERSION.$CIRCLE_BUILD_NUM
+            docker build -t $REGISTRY_USERNAME/$SERVICE_NAME:latest -t $REGISTRY_USERNAME/$SERVICE_NAME:$TAG --build-arg NODE_ENV=production .
+      - run:
+          name: Publish docker image to registry
+          command: |
+            cd dvc-tb-cms
+            VERSION=$(cat version.rc)
+            TAG=$VERSION.$CIRCLE_BUILD_NUM
+            echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USERNAME --password-stdin
+            docker push $REGISTRY_USERNAME/$SERVICE_NAME:$TAG
+            docker push $REGISTRY_USERNAME/$SERVICE_NAME:latest
+
+      - add_ssh_keys:
+          fingerprints:
+            - ${VPS_FINGERPRINT}
+
+      - run:
+          name: Deploy to cloud VPS
+          command: |
+            cd dvc-tb-cms
+            ssh -o StrictHostKeyChecking=no -v $VPS_USERNAME@$VPS_HOST -p $VPS_PORT "chmod +x $DEPLOY_SCRIPT && $DEPLOY_SCRIPT --service $SERVICE_NAME --service-path $SERVICE_PATH --mode init"
+            scp -P $VPS_PORT -o StrictHostKeyChecking=no -v docker-compose-prod.yml $VPS_USERNAME@$VPS_HOST:$SERVICE_PATH$SERVICE_NAME/docker-compose.yml
+            ssh -o StrictHostKeyChecking=no -v $VPS_USERNAME@$VPS_HOST -p $VPS_PORT "chmod +x $DEPLOY_SCRIPT && $DEPLOY_SCRIPT --service $SERVICE_NAME --service-path $SERVICE_PATH --mode deploy"
+
+workflows:
+  publish-zma-assets:
+    when:
+      or:
+        - << pipeline.parameters.build_zma >>
+        - << pipeline.parameters.build_all >>
+    jobs:
+      - build-assets:
+          filters:
+            branches:
+              only:
+                - staging
+                - main
+                - master
+                - release/*
+
+  publish-to-environment:
+    when:
+      or:
+        - << pipeline.parameters.build_cms >>
+        - << pipeline.parameters.build_all >>
+    jobs:
+      - build-node
+      - deploy-staging:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - build-node
+      - deploy-production:
+          filters:
+            branches:
+              only:
+                - main
+                - master
+                - release/*
+          requires:
+            - build-node

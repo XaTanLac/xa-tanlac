@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "type_recommendations",
+  "info": {
+    "singularName": "type-recommendation",
+    "pluralName": "type-recommendations",
+    "displayName": "Phân loại Ý kiến - Phản ánh",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

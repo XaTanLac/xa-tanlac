@@ -1,0 +1,22 @@
+plugins:
+  fixme:
+    enabled: true
+  csslint:
+    enabled: true
+  editorconfig:
+    enabled: true
+    config:
+      editorconfig: .editorconfig
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript
+        - typescript
+ratings:
+  paths:
+    - '**.js'
+    - '**.jsx'
+    - '**.ts'
+    - '**.tsx'
+exclude_paths: ['node_modules', 'coverage', 'dist', 'build', '__tests__']
