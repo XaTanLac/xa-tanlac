@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { AppError, followOA, getUserInfo, openProfile } from 'zmp-sdk'
 import { Box, Button, Center, Icon, Page, Sheet, Spinner, Swiper, Text, useNavigate, useSnackbar } from 'zmp-ui'
-
+import Banner from '@/assets/images/banner.jpg'
 import logoOA from '@/assets/images/logo.jpg'
 import IconButton from '@/components/icon-button'
 import ModalMenu from '@/components/modal-menu'
@@ -182,7 +182,7 @@ const HomePage: React.FunctionComponent = () => {
           <Swiper autoplay={false} loop={false} dots={false} className='!rounded-none !h-60'>
             {bannerImages?.map((image) => (
               <Swiper.Slide key={image.hash} className='relative'>
-                <img src={image.url} alt={image.alternativeText || image.name} />
+                <img src={Banner} alt={image.alternativeText || image.name} />
               </Swiper.Slide>
             ))}
           </Swiper>

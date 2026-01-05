@@ -42,13 +42,13 @@ const DefaultLayout: React.FC = () => {
         p={2}
         className={cn(isShowNavigation && '!pb-14', 'text-xs text-gray-500 bg-slate-50')}
       >
-        {/* <div className='font-medium'>Version {appVersion}</div> */}
+        <div className='font-medium'>Version {appVersion}</div>
         <div className='font-medium'>&copy; 2025 {appName}</div>
-        {/* <div className={cn('flex gap-2 items-center py-2', isShowNavigation && 'pb-14')}>
+        <div className={cn('flex gap-2 items-center py-2', isShowNavigation && 'pb-2')}>
           Đơn vị xây dựng
           <img className='w-10 h-auto' src={logoEkila} alt='logo' />
           www.ekila.vn
-        </div> */}
+        </div>
       </Box>
     </Box>
   )
