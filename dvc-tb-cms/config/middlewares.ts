@@ -1,4 +1,4 @@
-export default [
+export default ({ env }) => [
   "strapi::logger",
   "strapi::errors",
   {
@@ -8,8 +8,30 @@ export default [
         useDefaults: true,
         directives: {
           "connect-src": ["'self'", "https:"],
-          "img-src": ["'self'", "data:", "blob:", "res.cloudinary.com"],
-          "media-src": ["'self'", "data:", "blob:", "res.cloudinary.com"],
+          "img-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "market-assets.strapi.io",
+            env("CUSTOM_DOMAIN")
+              ? env("CUSTOM_DOMAIN").replace(/^https?:\/\//, "")
+              : "",
+            env("AWS_ENDPOINT")
+              ? env("AWS_ENDPOINT").replace(/^https?:\/\//, "")
+              : "",
+          ].filter(Boolean),
+          "media-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "market-assets.strapi.io",
+            env("CUSTOM_DOMAIN")
+              ? env("CUSTOM_DOMAIN").replace(/^https?:\/\//, "")
+              : "",
+            env("AWS_ENDPOINT")
+              ? env("AWS_ENDPOINT").replace(/^https?:\/\//, "")
+              : "",
+          ].filter(Boolean),
           upgradeInsecureRequests: null,
         },
       },
@@ -20,8 +42,7 @@ export default [
   "strapi::query",
   "strapi::body",
   "strapi::session",
-  // 👇 Custom middleware của bạn
   "global::pre-check-token",
   "strapi::favicon",
   "strapi::public",
-]
+];

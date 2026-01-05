@@ -8,17 +8,31 @@ export default ({ env }) => ({
   },
   upload: {
     config: {
-      provider: "cloudinary",
+      provider: "aws-s3",
       providerOptions: {
-        cloud_name: env("CLOUDINARY_NAME"),
-        api_key: env("CLOUDINARY_KEY"),
-        api_secret: env("CLOUDINARY_SECRET"),
+        accessKeyId: env("AWS_ACCESS_KEY_ID"),
+        secretAccessKey: env("AWS_ACCESS_SECRET"),
+        region: "auto",
+        baseUrl: env("CUSTOM_DOMAIN"),
+        rootPath: "strapiMedia",
+        s3Options: {
+          endpoint: env("AWS_ENDPOINT"),
+          credentials: {
+            accessKeyId: env("AWS_ACCESS_KEY_ID"),
+            secretAccessKey: env("AWS_ACCESS_SECRET"),
+          },
+          forcePathStyle: true,
+          params: {
+            Bucket: env("AWS_BUCKET"),
+            CacheControl: "max-age=31536000",
+          },
+        },
       },
-      sizeLimit: 250 * 1024 * 1024, // 256mb in bytes
       actionOptions: {
         upload: {},
+        uploadStream: {},
         delete: {},
       },
     },
   },
-})
+});
