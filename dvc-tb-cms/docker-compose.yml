@@ -1,6 +1,6 @@
 services:
-  dvc-xavinhhoa-staging2:
-    image: nducminhekila/dvc-xavinhhoa-staging2
+  dvc-xatanlac-staging:
+    image: nducminhekila/dvc-xatanlac-staging
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,12 +10,12 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=proxy
-      - traefik.http.services.dvc-xavinhhoa-staging2.loadbalancer.server.port=1337
-      - traefik.http.routers.dvc-xavinhhoa-staging2.rule=Host(`dvc-xvh.ekila.vn`)
-      - traefik.http.routers.dvc-xavinhhoa-staging2.entrypoints=websecure
-      - traefik.http.routers.dvc-xavinhhoa-staging2.tls=true
-      - traefik.http.routers.dvc-xavinhhoa-staging2.tls.certresolver=letsencrypt
-      - traefik.http.routers.dvc-xavinhhoa-staging2.middlewares=request-limit@file
+      - traefik.http.services.dvc-xatanlac-staging.loadbalancer.server.port=1337
+      - traefik.http.routers.dvc-xatanlac-staging.rule=Host(`tanlac.sohoaqg.vn`)
+      - traefik.http.routers.dvc-xatanlac-staging.entrypoints=websecure
+      - traefik.http.routers.dvc-xatanlac-staging.tls=true
+      - traefik.http.routers.dvc-xatanlac-staging.tls.certresolver=letsencrypt
+      - traefik.http.routers.dvc-xatanlac-staging.middlewares=request-limit@file
     env_file: .env
     volumes:
       - ./public:/opt/app/public

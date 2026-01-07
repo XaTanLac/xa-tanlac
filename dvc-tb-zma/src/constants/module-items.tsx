@@ -44,9 +44,9 @@ export interface IMenuActionProps {
 export const menuItems: IMenuActionProps[] = [
   {
     id: 'thong_tin_dien_tu',
-    title: 'Cổng TT điện tử xã Vĩnh Hòa',
+    title: 'Cổng TT điện tử xã Tân Lạc',
     icon: quocHuyIcon,
-    action: () => openPageInWebview('https://vinhhoa.haiphong.gov.vn/'),
+    action: () => openPageInWebview('https://tanlac.haiphong.gov.vn/'),
   },
   {
     id: 'so_tay_dang_vien',
@@ -79,7 +79,7 @@ export const gridItems: IMenuActionProps[] = [
     id: 'tin_tuc',
     title: 'Tin tức',
     icon: newsIcon,
-    action: () => openPageInWebview('https://vinhhoa.haiphong.gov.vn/tin-tuc-su-kien'),
+    action: () => openPageInWebview('https://tanlac.haiphong.gov.vn/tin-tuc-su-kien'),
   },
   {
     id: 'cong_dich_vu_cong_quoc_gia',

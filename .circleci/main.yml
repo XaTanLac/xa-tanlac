@@ -74,7 +74,7 @@ jobs:
       - image: cimg/base:stable
 
     environment:
-      SERVICE_NAME: dvc-xavinhhoa-staging2
+      SERVICE_NAME: dvc-xatanlac-staging
       SERVICE_PATH: ~/
       DEPLOY_SCRIPT: ~/EkilaVN/gateway/deploy.sh
 
@@ -116,7 +116,7 @@ jobs:
       - image: cimg/base:stable
 
     environment:
-      SERVICE_NAME: dvc-xavinhhoa
+      SERVICE_NAME: dvc-xatanlac
       SERVICE_PATH: ~/
       DEPLOY_SCRIPT: ~/EkilaVN/gateway/deploy.sh
 
@@ -183,12 +183,12 @@ workflows:
                 - staging
           requires:
             - build-node
-      - deploy-production:
-          filters:
-            branches:
-              only:
-                - main
-                - master
-                - release/*
-          requires:
-            - build-node
+      # - deploy-production:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - master
+      #           - release/*
+      #     requires:
+      #       - build-node
