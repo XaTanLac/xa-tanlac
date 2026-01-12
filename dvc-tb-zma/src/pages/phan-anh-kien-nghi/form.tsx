@@ -187,10 +187,10 @@ const FormPage: React.FC = () => {
     <Page hideScrollbar className='page bg-white'>
       <DefaultHeader title='Đơn phản ánh kiến nghị' onBackClick={() => setIsSheetVisible(true)} />
       <Box py={4} mb={5} mt={5} flex flexDirection='column' className='gap-1'>
-        <Text className='uppercase text-center text-sky-600' bold>
+        <Text className='uppercase text-center text-green-600' bold>
           <div className='text-2xl'>Tiếp nhận phản ánh</div>
         </Text>
-        <Text className='text-center text-sky-600' size='xxSmall' bold>
+        <Text className='text-center text-green-600' size='xxSmall' bold>
           Phản ánh của bạn sẽ được cơ quan có thẩm quyền tiếp nhận để trả lời. Xin vui lòng gõ tiếng việt có dấu
         </Text>
       </Box>

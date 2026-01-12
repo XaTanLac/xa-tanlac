@@ -17,7 +17,7 @@ const IconButton: React.FC<ImageIconProps> = ({ icon, isBackground = false, titl
           flex
           justifyContent='center'
           alignItems='center'
-          className='border-[2px] border-sky-700 rounded-lg w-14 h-14 overflow-hidden'
+          className='border-[2px] border-green-700 rounded-lg w-14 h-14 overflow-hidden'
         >
           <img className='object-contain w-2/3' src={icon} alt='icon' />
         </Box>

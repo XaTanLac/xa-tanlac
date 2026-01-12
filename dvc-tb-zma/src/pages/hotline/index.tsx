@@ -86,7 +86,7 @@ interface HotlineSectionProps {
 const HotlineSection: React.FC<HotlineSectionProps> = ({ title, listHotlines: listPhoneNumbers, phoneNumberColor }) => {
   return (
     <Box mt={5} mb={2}>
-      <Text size='xLarge' className='!font-bold text-sky-500'>
+      <Text size='xLarge' className='!font-bold text-green-500'>
         {title}
       </Text>
       {listPhoneNumbers.map((item, index) => (

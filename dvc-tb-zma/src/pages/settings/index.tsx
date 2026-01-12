@@ -12,7 +12,7 @@ const SettingsPage: React.FC = () => {
     <Page hideScrollbar className='page bg-white'>
       <DefaultHeader title='Cài đặt' showBackIcon={false} />
       <Box mt={7}>
-        <Text className='!font-bold text-sky-600'>Hệ thống</Text>
+        <Text className='!font-bold text-green-600'>Hệ thống</Text>
       </Box>
       <NavigationCard
         titleSize='sm'

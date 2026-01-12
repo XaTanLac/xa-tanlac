@@ -26,7 +26,7 @@ const JobPostingDetailPage: React.FC = () => {
       ) : (
         <Box>
           <Box className='!mt-4'>
-            <Text className='!text-xl !font-semibold uppercase text-sky-600'>{data?.title || ''}</Text>
+            <Text className='!text-xl !font-semibold uppercase text-green-600'>{data?.title || ''}</Text>
             <Box className='!my-1'>
               <Box className='!flex gap-1 items-center text-gray-600'>
                 <Text size='xSmall'>Ngày đăng: {formatDateDDMMYYYYhhmm(data?.createdAt || new Date(), false)}</Text>

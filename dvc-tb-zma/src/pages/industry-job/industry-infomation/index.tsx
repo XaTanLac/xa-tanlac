@@ -50,7 +50,7 @@ export const IndustryCardItem: React.FC<IIndustry> = ({ documentId, name, addres
       key={documentId}
       onClick={() => navigate(`/industry-posting/${documentId}`)}
     >
-      <Text size='large' className='!font-medium text-sky-600 break-words whitespace-normal'>
+      <Text size='large' className='!font-medium text-green-600 break-words whitespace-normal'>
         {name}
       </Text>
       <Box mt={5} flex className='gap-2' justifyContent='space-between'>

@@ -10,10 +10,10 @@ const PhanAnhPage: React.FC = () => {
     <Page className='page bg-white' hideScrollbar>
       <DefaultHeader title='Phản ánh kiến nghị' />
       <Box py={4} mb={5} mt={5} flex flexDirection='column' className='gap-1'>
-        <Text className='uppercase text-center text-sky-600' bold>
+        <Text className='uppercase text-center text-green-600' bold>
           <div className='text-2xl'>Phản ánh kiến nghị</div>
         </Text>
-        <Text className='text-center text-sky-600' size='xxxSmall' bold>
+        <Text className='text-center text-green-600' size='xxxSmall' bold>
           Hệ thống tiếp nhận, trả lời phản ánh, kiến nghị của người dân
         </Text>
       </Box>

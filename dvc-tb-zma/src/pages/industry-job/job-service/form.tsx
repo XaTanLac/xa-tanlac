@@ -118,10 +118,10 @@ const FormJobPostingPage: React.FC = () => {
     <Page hideScrollbar className='page bg-white'>
       <DefaultHeader title='Thêm bài tuyển dụng' onBackClick={() => setIsSheetVisible(true)} />
       <Box py={4} mb={5} flex flexDirection='column' className='gap-1'>
-        <Text className='uppercase text-center text-sky-600' bold>
+        <Text className='uppercase text-center text-green-600' bold>
           <div className='text-2xl'>Bài tuyển dụng mới</div>
         </Text>
-        <Text className='text-center text-sky-600' size='xxSmall' bold>
+        <Text className='text-center text-green-600' size='xxSmall' bold>
           Vui lòng điền đầy đủ thông tin để gửi bài tuyển dụng. Sau khi gửi, bài tuyển dụng sẽ được xem xét và phê
           duyệt.
         </Text>

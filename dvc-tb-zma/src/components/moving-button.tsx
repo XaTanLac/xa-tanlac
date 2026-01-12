@@ -27,7 +27,7 @@ const MovingButton: React.FC<MovingButtonProps> = ({
 }) => {
   return (
     <motion.div
-      className={`w-16 h-16 flex justify-center items-center rounded-full bg-sky-600 ${className}`}
+      className={`w-16 h-16 flex justify-center items-center rounded-full bg-green-600 ${className}`}
       drag={drag}
       dragMomentum={isDragMomentum}
       dragElastic={dragElastic}

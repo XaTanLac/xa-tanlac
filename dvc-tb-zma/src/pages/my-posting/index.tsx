@@ -27,7 +27,7 @@ const MyPostingPage: React.FC = () => {
 
   return (
     <Page hideScrollbar className='page bg-white'>
-      <DefaultHeader title='Vĩnh Hòa của tôi' />
+      <DefaultHeader title='Tân Lạc của tôi' />
       {loading ? (
         [...Array(12)].map((el, index) => <SkeletonCard key={index} />)
       ) : listArticle.length > 0 ? (

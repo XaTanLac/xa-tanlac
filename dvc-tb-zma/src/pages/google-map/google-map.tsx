@@ -268,7 +268,7 @@ const SelectedAddressSheet: React.FC<SelectedAddressSheetProps> = ({ address, se
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
 
   return (
-    <Box className='absolute bottom-0 left-0 w-full bg-sky-600'>
+    <Box className='absolute bottom-0 left-0 w-full bg-green-600'>
       <Box
         flex
         justifyContent='space-between'

@@ -13,9 +13,9 @@ const HomeHeader: React.FC = () => {
             <img className='bg-white rounded-full' src={logo} alt='logo' width={28} />
             <Box>
               <Text size='small' className='!font-bold'>
-                Xã Vĩnh Hòa
+                Xã Tân Lạc
               </Text>
-              <Text size='xxxSmall'>Nền tảng công dân số của xã Vĩnh Hòa</Text>
+              <Text size='xxxSmall'>Nền tảng công dân số của xã Tân Lạc</Text>
             </Box>
           </Box>
         ) as unknown as string

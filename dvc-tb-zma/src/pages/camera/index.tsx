@@ -176,7 +176,7 @@ const CameraPage: React.FC = () => {
         <video style={{ width: '100vw', height: '75vh' }} ref={videoRef} muted playsInline />
         <Box className='!flex justify-around items-center !px-10'>
           <Box className='!w-12 !h-12'></Box>
-          <Box className='!w-16 !h-16 bg-sky-600 rounded-full active:opacity-70' onClick={handleTakePhoto}></Box>
+          <Box className='!w-16 !h-16 bg-green-600 rounded-full active:opacity-70' onClick={handleTakePhoto}></Box>
           <Box
             className='!w-12 !h-12 bg-gray-300 rounded-full !flex justify-center items-center active:opacity-70'
             onClick={async () => await cameraRef.current?.flip()}

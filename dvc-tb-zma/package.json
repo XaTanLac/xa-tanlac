@@ -17,9 +17,7 @@
     "start": "zmp start",
     "deploy": "zmp deploy",
     "build:css": "postcss src/css/tailwind.css -o src/css/styles.css",
-        "build": "vite build",
-
-
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint-fix": "eslint --fix",
     "prettier": "prettier . --check",

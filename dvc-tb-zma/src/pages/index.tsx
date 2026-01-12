@@ -182,7 +182,7 @@ const HomePage: React.FunctionComponent = () => {
           <Swiper autoplay={false} loop={false} dots={false} className='!rounded-none !h-60'>
             {bannerImages?.map((image) => (
               <Swiper.Slide key={image.hash} className='relative'>
-                <img src={Banner} alt={image.alternativeText || image.name} />
+                <img src={image.url} alt={image.alternativeText || image.name} />
               </Swiper.Slide>
             ))}
           </Swiper>
@@ -256,7 +256,7 @@ const HomePage: React.FunctionComponent = () => {
       <Box mt={2} className='bg-white' px={4} py={5}>
         <Box className='border-b border-gray' pb={3} mb={3}>
           <Text size='xxSmall' className='text-gray-500'>
-            Liên hệ trang Zalo OA chính danh của xã Vĩnh Hòa
+            Liên hệ trang Zalo OA chính danh của xã Tân Lạc
           </Text>
         </Box>
         <Box flex alignItems='center' justifyContent='space-between'>
@@ -264,7 +264,7 @@ const HomePage: React.FunctionComponent = () => {
             <img src={logoOA} alt='logo' width={32} />
             <Box flex flexDirection='column'>
               <Text size='large' bold>
-                Xã Vĩnh Hòa
+                Xã Tân Lạc
               </Text>
               <Text size='xxSmall' className='text-gray-500'>
                 Tài khoản OA

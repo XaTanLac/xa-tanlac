@@ -65,7 +65,7 @@ const TraCuuPhanAnhPage: React.FC = () => {
         style={{ top: '0px' }}
       >
         <Box py={4} mb={5} flex flexDirection='column' className='gap-3'>
-          <Text className='uppercase text-center text-sky-600' bold>
+          <Text className='uppercase text-center text-green-600' bold>
             <div className='text-2xl'>Tra cứu phản ánh kiến nghị</div>
           </Text>
         </Box>

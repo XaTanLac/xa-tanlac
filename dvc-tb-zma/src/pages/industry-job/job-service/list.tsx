@@ -72,7 +72,7 @@ export const JobPostingCardItem: React.FC<IJobPostingCardItemProps> = ({
       key={job.documentId}
       onClick={() => navigate(`/job-posting/${job.documentId}`)}
     >
-      <Text size='large' className='!font-medium text-sky-600 break-words whitespace-normal'>
+      <Text size='large' className='!font-medium text-green-600 break-words whitespace-normal'>
         {job.title}
       </Text>
       <Text size='small' className='text-gray-600 mt-2 break-words whitespace-normal'>

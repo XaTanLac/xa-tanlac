@@ -10,15 +10,15 @@ import digitalIcon from '@/assets/icons/digital.png'
 import searchTTIcon from '@/assets/icons/document.png'
 import eduIcon from '@/assets/icons/edu.png'
 import envirIcon from '@/assets/icons/environment.png'
-import foodTravelIcon from '@/assets/icons/food-travel.png'
 import foodIcon from '@/assets/icons/food.png'
 import hiringIcon from '@/assets/icons/hiring.png'
 import imageGalleryIcon from '@/assets/icons/image-gallery.png'
 import industryIcon from '@/assets/icons/industry.png'
 import myFeedbackIcon from '@/assets/icons/my-feedback.png'
 import newsIcon from '@/assets/icons/news.png'
+import newspaper from '@/assets/icons/newspaper.png'
 import paperWorkIcon from '@/assets/icons/paperwork.png'
-// import myPostIcon from '@/assets/icons/personal-information.png'
+import myTanLac from '@/assets/images/logo.jpg'
 import postingIcon from '@/assets/icons/posting.png'
 import publicAnnouncementIcon from '@/assets/icons/public-announcement.png'
 import dvcIcon from '@/assets/icons/quoc_huy.png'
@@ -43,6 +43,12 @@ export interface IMenuActionProps {
 
 export const menuItems: IMenuActionProps[] = [
   {
+    id: 'tan_lac_cua_toi',
+    title: 'Tân Lạc của tôi',
+    icon: myTanLac,
+    action: ({ navigate }) => navigate({ search: '?isModalMyPosting=true' }),
+  },
+  {
     id: 'thong_tin_dien_tu',
     title: 'Cổng TT điện tử xã Tân Lạc',
     icon: quocHuyIcon,
@@ -54,32 +60,33 @@ export const menuItems: IMenuActionProps[] = [
     icon: stdvIcon,
     action: () => openPageInWebview('https://sotaydangvien.dcs.vn/page/Account/home'),
   },
-  {
-    id: 'tra_cuu_thu_tuc',
-    title: 'Hồ sơ của tôi',
-    icon: paperWorkIcon,
-    action: ({ navigate }) => navigate({ search: '?isModalMyProfile=true' }),
-  },
-  {
-    id: 'duong_day_nong',
-    title: 'Đường dây nóng',
-    icon: telephoneIcon,
-    action: ({ navigate }) => navigate('/hotline'),
-  },
+
+  // {
+  //   id: 'tra_cuu_thu_tuc',
+  //   title: 'Hồ sơ của tôi',
+  //   icon: paperWorkIcon,
+  //   action: ({ navigate }) => navigate({ search: '?isModalMyProfile=true' }),
+  // },
+  // {
+  //   id: 'duong_day_nong',
+  //   title: 'Đường dây nóng',
+  //   icon: telephoneIcon,
+  //   action: ({ navigate }) => navigate('/hotline'),
+  // },
 ]
 
 export const gridItems: IMenuActionProps[] = [
   {
-    id: 'tien_minh_cua_toi',
-    title: 'Vĩnh Hòa của tôi',
-    icon: myPostIcon,
-    action: ({ navigate }) => navigate({ search: '?isModalMyPosting=true' }),
-  },
-  {
     id: 'tin_tuc',
     title: 'Tin tức',
     icon: newsIcon,
-    action: () => openPageInWebview('https://tanlac.haiphong.gov.vn/tin-tuc-su-kien'),
+    action: ({ navigate }) => navigate('/article-news'),
+  },
+  {
+    id: 'bao_phu_tho',
+    title: 'Báo Phú Thọ',
+    icon: newspaper,
+    action: () => openPageInWebview('https://baophutho.vn/'),
   },
   {
     id: 'cong_dich_vu_cong_quoc_gia',
@@ -87,6 +94,18 @@ export const gridItems: IMenuActionProps[] = [
     icon: dvcIcon,
     action: () => openPageInWebview('https://dichvucong.gov.vn/p/home/dvc-trang-chu.html'),
   },
+  // {
+  //   id: 'so_tay_dang_vien',
+  //   title: 'Sổ tay Đảng viên',
+  //   icon: book,
+  //   action: () => openPageInWebview('#'),
+  // },
+  // {
+  //   id: 'cong_tt_dien_tu_xa_tan_lac',
+  //   title: 'Cổng TT điện tử xã Tân Lạc',
+  //   icon: integration,
+  //   action: () => openPageInWebview(''),
+  // },
   {
     id: 'thong_tin_cong_khai',
     title: 'Thông tin công khai',
@@ -99,7 +118,7 @@ export const gridItems: IMenuActionProps[] = [
     id: 'chuyen_doi_so',
     title: 'Chuyển đổi số',
     icon: digitalIcon,
-    action: () => openPageInWebview('https://chuyendoiso.haiphong.gov.vn'),
+    action: () => openPageInWebview('https://sokhoahoccongnghe.phutho.gov.vn/'),
   },
   {
     id: 'binh_dan_hoc_vu',
@@ -121,12 +140,12 @@ export const gridItems: IMenuActionProps[] = [
     icon: hiringIcon,
     action: ({ navigate }) => navigate({ search: '?isModalIndustryJob=true' }),
   },
-  {
-    id: 'am_thuc_du_lich',
-    title: 'Văn hóa - Du lịch - Ẩm thực',
-    icon: foodTravelIcon,
-    action: ({ navigate }) => navigate({ search: '?isModalFoodTravel=true' }),
-  },
+  // {
+  //   id: 'am_thuc_du_lich',
+  //   title: 'Văn hóa - Du lịch - Ẩm thực',
+  //   icon: foodTravelIcon,
+  //   action: ({ navigate }) => navigate({ search: '?isModalFoodTravel=true' }),
+  // },
   {
     id: 'phan_anh_kien_nghi',
     title: 'Ý kiến - Phản ánh',
@@ -278,7 +297,7 @@ export const modalMenuItems = [
     item: myProfile,
   },
   {
-    title: 'Vĩnh Hòa của tôi',
+    title: 'Tân Lạc của tôi',
     param: 'isModalMyPosting',
     item: myPosting,
   },

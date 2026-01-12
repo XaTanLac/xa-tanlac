@@ -112,10 +112,10 @@ const IndustryFormPage: React.FC = () => {
     <Page hideScrollbar className='page bg-white'>
       <DefaultHeader title='Thêm thông tin doanh nghiệp' onBackClick={() => setIsSheetVisible(true)} />
       <Box py={4} mb={5} flex flexDirection='column' className='gap-1'>
-        <Text className='uppercase text-center text-sky-600' bold>
+        <Text className='uppercase text-center text-green-600' bold>
           <div className='text-2xl'>Thông tin doanh nghiệp</div>
         </Text>
-        <Text className='text-center text-sky-600' size='xxSmall' bold>
+        <Text className='text-center text-green-600' size='xxSmall' bold>
           Vui lòng điền đầy đủ thông tin doanh nghiệp. Sau khi gửi, thông tin sẽ được xem xét và phê duyệt.
         </Text>
       </Box>

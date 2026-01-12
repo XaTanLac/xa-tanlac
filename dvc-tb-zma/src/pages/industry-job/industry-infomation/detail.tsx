@@ -27,7 +27,7 @@ const IndustryDetailPage: React.FC = () => {
       ) : (
         <Box>
           <Box className='!mt-4'>
-            <Text className='!text-xl !font-semibold uppercase text-sky-600'>{data?.name || ''}</Text>
+            <Text className='!text-xl !font-semibold uppercase text-green-600'>{data?.name || ''}</Text>
 
             <Box
               flex

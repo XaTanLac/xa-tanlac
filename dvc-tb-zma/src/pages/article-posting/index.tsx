@@ -22,7 +22,7 @@ const PostingArticlePage: React.FC = () => {
 
   return (
     <ArticleTemplatePage
-      title={'Vĩnh Hòa của tôi'}
+      title={'Tân Lạc của tôi'}
       data={listArticle}
       metaData={metaData}
       loading={loading}

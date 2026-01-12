@@ -20,7 +20,7 @@ const IconCard: React.FC<IconCardProps> = ({ icon, title, onClick }) => {
       <Box className='h-32 w-32'>
         <img src={icon} alt='icon' />
       </Box>
-      <Text size='xSmall' className='!font-medium text-sky-600'>
+      <Text size='xSmall' className='!font-medium text-green-600'>
         {title}
       </Text>
     </Box>
