@@ -12,6 +12,7 @@ interface ArticleTemplatePageProps {
   title: string
   data: IArticle[] | IPublicInfo[]
   loading?: boolean
+  isLoadingMore?: boolean
   metaData?: {
     pagination: {
       page: number
@@ -29,6 +30,7 @@ const ArticleTemplatePage: React.FC<ArticleTemplatePageProps> = ({
   metaData,
   data,
   loading,
+  isLoadingMore,
   onClickCard,
   onLoadMore,
 }) => {
@@ -54,7 +56,7 @@ const ArticleTemplatePage: React.FC<ArticleTemplatePageProps> = ({
             />
           ))}
           {isLoadMore && (
-            <Button size='medium' loading={loading} onClick={onLoadMore}>
+            <Button size='medium' loading={isLoadingMore} onClick={onLoadMore}>
               Tải thêm
             </Button>
           )}

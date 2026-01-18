@@ -2,31 +2,75 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'zmp-ui'
 
 import ArticleTemplatePage from '@/components/article/article'
-import { NEWS_API } from '@/constants/endpoint'
-import { IArticle, useArticleMemo } from '@/hooks/use-article'
+import { IArticle } from '@/hooks/use-article'
+import useZaloArticle from '@/hooks/use-zalo-article'
+import { IZaloArticleMedia } from '@/types/zalo-oa'
+import { getValidAccessToken } from '@/utils/zalo-oa'
 
-const NewsArticlePage: React.FC = () => {
-  const [pageNumber, setPageNumber] = useState(1)
+const NewsArticlePage: React.FC = (): React.ReactElement => {
   const [news, setNews] = useState<IArticle[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
+  const accessToken = getValidAccessToken()
 
-  const [newsData, loading, metaData] = useArticleMemo<IArticle[]>(
-    NEWS_API.LIST,
-    { pagination: { page: pageNumber, pageSize: 10 } },
-    [pageNumber],
-  )
+  const pageSize = 10
+  const offset = (currentPage - 1) * pageSize
+  const { data, loading, isLoadingMore, total } = useZaloArticle(offset, pageSize, 'normal', accessToken || undefined)
+
+  const mapZaloToArticle = (zaloArticles: IZaloArticleMedia[]): IArticle[] => {
+    return zaloArticles.map((article) => ({
+      documentId: article.id,
+      title: article.title,
+      content: `Lượt xem: ${article.total_view} | ❤️ ${article.total_like} | 💬 ${article.total_comment}`,
+      isTopNews: false,
+      createdAt: new Date(article.create_date).toISOString(),
+      imgBanner: article.thumb
+        ? {
+            id: 0,
+            documentId: article.id,
+            name: article.title,
+            url: article.thumb,
+          }
+        : undefined,
+    }))
+  }
 
   useEffect(() => {
-    if (!loading && newsData) setNews((prev) => [...prev, ...newsData])
-  }, [newsData, loading])
+    if (!loading && data && data.length > 0) {
+      const mappedArticles = mapZaloToArticle(data)
+      // Remove duplicates by documentId
+      setNews((prevNews) => {
+        const seen = new Set(prevNews.map((item) => item.documentId))
+        const newArticles = mappedArticles.filter((item) => !seen.has(item.documentId))
+        return [...prevNews, ...newArticles]
+      })
+    }
+  }, [data, loading])
+
+  const pageCount = Math.ceil(total / pageSize)
+  const metaData = {
+    pagination: {
+      page: currentPage,
+      pageSize: pageSize,
+      pageCount: pageCount,
+      total: total,
+    },
+  }
+
+  const handleLoadMore = (): void => {
+    if (currentPage < pageCount) {
+      setCurrentPage((prev) => prev + 1)
+    }
+  }
 
   return (
     <ArticleTemplatePage
-      title={'Thông tin từ Chính quyền'}
+      title={'Thông tin từ Chính quyền'}
       data={news}
       metaData={metaData}
-      onLoadMore={() => setPageNumber((prev) => prev + 1)}
+      onLoadMore={handleLoadMore}
       loading={loading}
+      isLoadingMore={isLoadingMore}
       onClickCard={function (id: string): void {
         navigate(`/article-news/${id}`)
       }}

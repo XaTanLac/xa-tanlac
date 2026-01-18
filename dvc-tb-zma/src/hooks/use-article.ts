@@ -12,6 +12,8 @@ export interface IArticle {
   isTopNews: boolean
   createdAt: string
   imgBanner?: MediaModel
+  description?: string
+  body?: any[]
 }
 
 export interface MediaModel {

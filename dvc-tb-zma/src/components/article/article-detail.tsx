@@ -1,39 +1,68 @@
-import Markdown from 'markdown-to-jsx'
 import React from 'react'
 import { Box, Icon, Page, Spinner, Text } from 'zmp-ui'
-import { openWebview } from 'zmp-sdk'
 
 import DefaultHeader from '@/layouts/default-header'
 import { formatDateDDMMYYYYhhmm } from '@/utils/string-handler'
 import { IArticle } from '@/hooks/use-article'
+
+interface ZaloBodyItem {
+  type: 'text' | 'image' | 'video'
+  content?: string
+  url?: string
+  caption?: string
+}
 
 interface ArticleTemplateDetailProps {
   data?: IArticle
   loading?: boolean
 }
 
-const CustomLink: React.FC<{ href?: string; children: React.ReactNode }> = ({ href, children }) => {
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    if (href) {
-      openWebview({
-        url: href,
-        config: {
-          style: 'normal',
-          leftButton: 'back',
-        },
-      })
+const ArticleTemplateDetail: React.FC<ArticleTemplateDetailProps> = ({ data, loading }): React.ReactElement => {
+  const renderContent = (): React.ReactNode => {
+    if (!data?.content && !data?.body) return null
+
+    if (data.body && Array.isArray(data.body)) {
+      return (
+        <>
+          {data.body.map((item: ZaloBodyItem, idx: number) => {
+            if (item.type === 'text' && item.content) {
+              return (
+                <div
+                  key={idx}
+                  className='prose max-w-none text-gray-800'
+                  dangerouslySetInnerHTML={{ __html: item.content }}
+                />
+              )
+            }
+            if (item.type === 'image' && item.url) {
+              const caption = item.caption || ''
+              return (
+                <figure key={idx} className='my-4'>
+                  <img src={item.url} alt={caption} className='max-w-full h-auto' />
+                  {caption && <figcaption className='text-center mt-2 text-gray-600 text-sm'>{caption}</figcaption>}
+                </figure>
+              )
+            }
+            if (item.type === 'video' && item.url) {
+              return (
+                <div key={idx} className='my-4 w-full'>
+                  <video controls className='max-w-full h-auto block bg-black'>
+                    <source src={item.url} type='video/mp4' />
+                    <track kind='captions' src='' label='Captions' />
+                    Trình duyệt của bạn không hỗ trợ video
+                  </video>
+                </div>
+              )
+            }
+            return null
+          })}
+        </>
+      )
     }
+
+    return <div className='prose max-w-none text-gray-800' dangerouslySetInnerHTML={{ __html: data.content }} />
   }
 
-  return (
-    <a href={href} onClick={handleClick} className='text-blue-600 underline'>
-      {children}
-    </a>
-  )
-}
-
-const ArticleTemplateDetail: React.FC<ArticleTemplateDetailProps> = ({ data, loading }) => {
   return (
     <Page className='bg-white' hideScrollbar>
       <DefaultHeader title={data?.title || ''} />
@@ -45,7 +74,7 @@ const ArticleTemplateDetail: React.FC<ArticleTemplateDetailProps> = ({ data, loa
         <Box>
           {data?.imgBanner && (
             <Box>
-              <img className={'object-cover h-64 w-screen'} src={data.imgBanner.url || ''} alt='News banner' />
+              <img className='object-cover h-64 w-screen' src={data.imgBanner.url || ''} alt='Article banner' />
             </Box>
           )}
           <Box px={4} className='!mt-7'>
@@ -56,19 +85,14 @@ const ArticleTemplateDetail: React.FC<ArticleTemplateDetailProps> = ({ data, loa
                 <Text className='!text-sm'>{formatDateDDMMYYYYhhmm(data?.createdAt || new Date())}</Text>
               </Box>
             </Box>
+            {data?.description && (
+              <Box className='!my-3'>
+                <Text className='!font-semibold text-gray-800'>{data.description}</Text>
+              </Box>
+            )}
           </Box>
-          <Box px={4} mt={10} className='article-content !pb-1'>
-            <Markdown
-              options={{
-                overrides: {
-                  a: {
-                    component: CustomLink,
-                  },
-                },
-              }}
-            >
-              {data?.content || ''}
-            </Markdown>
+          <Box px={4} mt={4} className='article-content !pb-10'>
+            {renderContent()}
           </Box>
         </Box>
       )}

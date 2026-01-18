@@ -1,25 +1,26 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { AppError, followOA, getUserInfo, openProfile } from 'zmp-sdk'
 import { Box, Button, Center, Icon, Page, Sheet, Spinner, Swiper, Text, useNavigate, useSnackbar } from 'zmp-ui'
-import Banner from '@/assets/images/banner.jpg'
 import logoOA from '@/assets/images/logo.jpg'
 import IconButton from '@/components/icon-button'
 import ModalMenu from '@/components/modal-menu'
 import MovingButton from '@/components/moving-button'
 import { FilterTime, gridItems, labelFilterTime, menuItems, modalMenuItems, OA_ID } from '@/constants'
-import { NEWS_API } from '@/constants/endpoint'
-import { IArticle, useArticleMemo } from '@/hooks/use-article'
+import useZaloArticle from '@/hooks/use-zalo-article'
 import useAssessmentsMemo from '@/hooks/use-assessment'
 import useBannersMemo from '@/hooks/use-banners'
 import useVisitorMemo from '@/hooks/use-visitor'
 import HomeHeader from '@/layouts/home-header'
 import { formatDateDDMMYYYYhhmm, getDateRange } from '@/utils/string-handler'
+import { getValidAccessToken } from '@/utils/zalo-oa'
 
 const HomePage: React.FunctionComponent = () => {
   const navigate = useNavigate()
   const { openSnackbar } = useSnackbar()
+  const accessToken = getValidAccessToken()
 
   const oaId = useMemo(() => OA_ID, [])
+
   const [checkFollow, setCheckFollow] = useState(false)
   const [isSheetVisible, setIsSheetVisible] = useState(false)
   const [currentTypeTime, setCurrentTypeTime] = useState<FilterTime>(FilterTime.TODAY)
@@ -93,23 +94,8 @@ const HomePage: React.FunctionComponent = () => {
     [],
   )
 
-  const [topNewsData, setTopNewsData] = useState<IArticle[]>()
-  const [topNews, topNewsLoading] = useArticleMemo<IArticle[]>(
-    NEWS_API.LIST,
-    {
-      pagination: {
-        limit: 7,
-      },
-      filters: {
-        isTopNews: {
-          $eq: true,
-        },
-      },
-      populate: '*',
-      sort: ['createdAt:desc'],
-    },
-    [],
-  )
+  // Fetch articles from Zalo OA API
+  const { data: topNewsData } = useZaloArticle(0, 10, 'normal', accessToken || '')
 
   const handleLienHe = async (): Promise<void> => {
     try {
@@ -156,11 +142,6 @@ const HomePage: React.FunctionComponent = () => {
     setCurrentTypeTime(type)
   }
 
-  useEffect(() => {
-    if (!topNewsLoading && topNews) {
-      setTopNewsData(topNews)
-    }
-  }, [topNews, topNewsLoading])
   useEffect(() => {
     const checkUserFollow = async (): Promise<void> => {
       try {
@@ -288,7 +269,7 @@ const HomePage: React.FunctionComponent = () => {
       {topNewsData && topNewsData?.length > 0 && (
         <Box flex flexDirection='column' mt={2} className='bg-white' pb={5}>
           <Text size='xLarge' bold className='text-center p-5'>
-            Tin tức nổi bật
+            Tin tức gần đây
           </Text>
           <Swiper
             autoplay
@@ -299,14 +280,14 @@ const HomePage: React.FunctionComponent = () => {
             }}
           >
             {topNewsData?.map((new_item) => (
-              <Swiper.Slide className='!w-[300px] !min-w-[300px] mx-2' key={new_item.documentId}>
+              <Swiper.Slide className='!w-[300px] !min-w-[300px] mx-2' key={new_item.id}>
                 <Box
                   flex
                   flexDirection='column'
                   className='gap-3'
-                  onClick={() => navigate(`/article-news/${new_item.documentId}`)}
+                  onClick={() => navigate(`/article-news/${new_item.id}`)}
                 >
-                  <img src={new_item.imgBanner?.url} alt='slide-1' className='h-40 rounded-md pointer-events-none' />
+                  <img src={new_item.thumb} alt={new_item.title} className='h-40 rounded-md pointer-events-none' />
                   <Text size='small' bold className='pointer-events-none'>
                     <div className='line-clamp-3 overflow-hidden text-ellipsis text-wrap text-center'>
                       {new_item.title}

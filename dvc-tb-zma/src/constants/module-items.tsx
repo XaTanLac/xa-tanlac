@@ -94,18 +94,6 @@ export const gridItems: IMenuActionProps[] = [
     icon: dvcIcon,
     action: () => openPageInWebview('https://dichvucong.gov.vn/p/home/dvc-trang-chu.html'),
   },
-  // {
-  //   id: 'so_tay_dang_vien',
-  //   title: 'Sổ tay Đảng viên',
-  //   icon: book,
-  //   action: () => openPageInWebview('#'),
-  // },
-  // {
-  //   id: 'cong_tt_dien_tu_xa_tan_lac',
-  //   title: 'Cổng TT điện tử xã Tân Lạc',
-  //   icon: integration,
-  //   action: () => openPageInWebview(''),
-  // },
   {
     id: 'thong_tin_cong_khai',
     title: 'Thông tin công khai',
@@ -140,12 +128,6 @@ export const gridItems: IMenuActionProps[] = [
     icon: hiringIcon,
     action: ({ navigate }) => navigate({ search: '?isModalIndustryJob=true' }),
   },
-  // {
-  //   id: 'am_thuc_du_lich',
-  //   title: 'Văn hóa - Du lịch - Ẩm thực',
-  //   icon: foodTravelIcon,
-  //   action: ({ navigate }) => navigate({ search: '?isModalFoodTravel=true' }),
-  // },
   {
     id: 'phan_anh_kien_nghi',
     title: 'Ý kiến - Phản ánh',
@@ -160,12 +142,6 @@ export const gridItems: IMenuActionProps[] = [
       openPageInWebview(link)
     },
   },
-  // {
-  //   id: 'tien_ich',
-  //   title: 'Tiện ích hằng ngày',
-  //   icon: utilIcon,
-  //   action: ({ navigate }) => navigate({ search: '?isModalDailyUtilities=true' }),
-  // },
   {
     id: 'tao_shortcut',
     title: 'Tạo phím tắt',
